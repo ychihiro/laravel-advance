@@ -1,0 +1,105 @@
+body {
+  color: #333;
+  background-color: #13577e;
+  font-family: 'Domine', serif;
+}
+
+.wrapper {
+  width: 700px;
+  margin: 300px auto;
+  padding: 30px 25px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.ttl-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ttl {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+input {
+  border-radius: 8px;
+}
+
+.ttl-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.add-ttl {
+  width: 85%;
+  border: 1px solid #999;
+}
+
+.error {
+  color: red;
+}
+
+.add-btn {
+  padding: 13px 25px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.add-btn:hover {
+  color: #fff;
+  background-color: palevioletred;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  font-size: 20px;
+  padding: 5px 20px;
+}
+
+td {
+  padding: 10px 10px;
+  text-align: center;
+}
+
+.ttl-list {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #999;
+}
+
+.update-btn,
+.del-btn {
+  padding: 5px 20px;
+  font-weight: bold;
+}
+
+.update-btn {
+  color: #ff9933;
+  border: 2px solid #ff9933;
+  background-color: #fff;
+}
+
+.update-btn:hover {
+  color: #fff;
+  background-color: #ff9933;
+}
+
+.del-btn {
+  color: #00a497;
+  border: 2px solid #00a497;
+  background-color: #fff;
+}
+
+.del-btn:hover {
+  color: #fff;
+  background-color: #00a497;
+}
