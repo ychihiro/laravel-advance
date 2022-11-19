@@ -17,8 +17,6 @@
       <h1 class="ttl">Todo List</h1>
       @if (Auth::check())
       <p class="user">「{{$user->name}}」でログイン中</p>
-      @else
-      <p>ログインしてください</p>
       @endif
       <form action="/home" method="GET">
         <input type="submit" value="ログアウト" class="out-btn">
@@ -34,6 +32,9 @@
       @enderror
       <div class="ttl-box">
         <input type="text" name="title" class="add-ttl">
+        @foreach ($tags as $tag)
+        <p>{{$tag->category}}</p>
+        @endforeach
         <input type="submit" value="追加" class="add-btn">
       </div>
     </form>
@@ -41,7 +42,6 @@
       <tr class="list-ttl">
         <th width="30%">作成日</th>
         <th width="50%">タスク名</th>
-        <!-- <th width="50%">タグ名</th> -->
         <th width="10%">更新</th>
         <th width="10%">削除</th>
       </tr>
@@ -52,15 +52,16 @@
           @csrf
           <td><input type=" text" name="title" value="{{$todo->title}}" class="ttl-list"></td>
           <td>
-            <div class="tag-container">
+            <!-- <div class="tag-container">
               <select name="">
-                <option value="1" selected>家事</option>
-                <option value="2">勉強</option>
+                foreach ($todo->tag as $tags)
+                <option value="1">{{$tags->category}}</option>
+                <option value="2"></option>
                 <option value="3">運動</option>
                 <option value="4">食事</option>
                 <option value="5">移動</option>
               </select>
-            </div>
+            </div> -->
           </td>
           <td><input type="submit" value="更新" class="update-btn"></td>
         </form>

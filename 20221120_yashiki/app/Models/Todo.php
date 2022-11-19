@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'user_id', 'tag_id'];
 
     public function tag()
     {
