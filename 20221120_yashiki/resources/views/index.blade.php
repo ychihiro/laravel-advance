@@ -57,7 +57,7 @@
           <td>
             <select name="category">
               @foreach ($tags as $tag)
-              <option value="{{$tag->id}}" @if ($tag->id == $todo->tag->tag_id) selected @endif>{{$tag->category}}</option>
+              <option value="{{$tag->id}}" @if ($tag->id == $todo->tag_id) selected @endif>{{$tag->category}}</option>
               @endforeach
             </select>
           </td>
