@@ -25,7 +25,7 @@
     <form action="/search" method="POST">
       @csrf
       <div class="ttl-box">
-        <input type="text" name="title" class="add-ttl">
+        <input type="text" name="keyword" class="add-ttl">
         <select name="category">
           @foreach ($tags as $tag)
           <option value="{{$tag->id}}">{{$tag->category}}</option>

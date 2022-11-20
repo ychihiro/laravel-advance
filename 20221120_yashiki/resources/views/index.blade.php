@@ -32,7 +32,7 @@
       @enderror
       <div class="ttl-box">
         <input type="text" name="title" class="add-ttl">
-        <select name="category">
+        <select name="tag_id">
           @foreach ($tags as $tag)
           <option value="{{$tag->id}}">{{$tag->category}}</option>
           @endforeach
@@ -55,7 +55,7 @@
           @csrf
           <td><input type=" text" name="title" value="{{$todo->title}}" class="ttl-list"></td>
           <td>
-            <select name="category">
+            <select name="tag_id">
               @foreach ($tags as $tag)
               <option value="{{$tag->id}}" @if ($tag->id == $todo->tag_id) selected @endif>{{$tag->category}}</option>
               @endforeach
