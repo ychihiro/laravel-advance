@@ -32,16 +32,19 @@
       @enderror
       <div class="ttl-box">
         <input type="text" name="title" class="add-ttl">
-        @foreach ($tags as $tag)
-        <p>{{$tag->category}}</p>
-        @endforeach
+        <select name="category">
+          @foreach ($tags as $tag)
+          <option value="{{$tag->id}}">{{$tag->category}}</option>
+          @endforeach
+        </select>
         <input type="submit" value="追加" class="add-btn">
       </div>
     </form>
     <table class="list">
       <tr class="list-ttl">
         <th width="30%">作成日</th>
-        <th width="50%">タスク名</th>
+        <th width="30%">タスク名</th>
+        <th width="10%">タグ名</th>
         <th width="10%">更新</th>
         <th width="10%">削除</th>
       </tr>
@@ -52,16 +55,11 @@
           @csrf
           <td><input type=" text" name="title" value="{{$todo->title}}" class="ttl-list"></td>
           <td>
-            <!-- <div class="tag-container">
-              <select name="">
-                foreach ($todo->tag as $tags)
-                <option value="1">{{$tags->category}}</option>
-                <option value="2"></option>
-                <option value="3">運動</option>
-                <option value="4">食事</option>
-                <option value="5">移動</option>
-              </select>
-            </div> -->
+            <select name="category">
+              @foreach ($tags as $tag)
+              <option value="{{$tag->id}}" @if ($tag->id == $todo->tag->tag_id) selected @endif>{{$tag->category}}</option>
+              @endforeach
+            </select>
           </td>
           <td><input type="submit" value="更新" class="update-btn"></td>
         </form>

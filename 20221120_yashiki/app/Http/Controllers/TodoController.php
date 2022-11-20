@@ -12,7 +12,7 @@ class TodoController extends Controller
 {
     public function index()
     {
-        $todos = Todo::with(['tag', 'user'])->get();
+        $todos = Todo::with(['tag', 'user']);
         $user = Auth::user();
         $tags = Tag::all();
         $param = [
@@ -42,5 +42,29 @@ class TodoController extends Controller
     {
         Todo::find($request->id)->delete();
         return redirect('/');
+    }
+
+    public function keyword()
+    {
+        $user = Auth::user();
+        $tags = Tag::all();
+        $param = [
+            'user' => $user,
+            'tags' => $tags,
+        ];
+        return view('search', $param);
+    }
+
+    public function return()
+    {
+        $todos = Todo::with(['tag', 'user']);
+        $user = Auth::user();
+        $tags = Tag::all();
+        $param = [
+            'todos' => $todos,
+            'user' => $user,
+            'tags' => $tags,
+        ];
+        return view('index', $param);
     }
 }

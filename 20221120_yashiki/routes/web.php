@@ -18,6 +18,10 @@ Route::get('/home', [TodoController::class, 'index'])->middleware(['auth']);
 Route::post('/add', [TodoController::class, 'add']);
 Route::post('/update/{id}', [TodoController::class, 'update']);
 Route::post('/delete/{id}', [TodoController::class, 'delete']);
+Route::get('/search', [TodoController::class, 'keyword']);
+Route::post('/search', [TodoController::class, 'search']);
+Route::get('/return', [TodoController::class, 'return']);
+
 
 
 Route::get('/', function () {
