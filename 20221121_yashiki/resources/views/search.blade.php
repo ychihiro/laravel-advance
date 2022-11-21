@@ -14,32 +14,28 @@
 <body>
   <div class="wrapper">
     <div class="ttl-container">
-      <h1 class="ttl">Todo List</h1>
+      <h1 class="ttl">タスク検索</h1>
       @if (Auth::check())
       <p class="user">「{{$user->name}}」でログイン中</p>
       @endif
-      <form action="/logout" method="GET">
+      <form action="/home" method="GET">
         <input type="submit" value="ログアウト" class="out-btn">
       </form>
     </div>
-    <form action="/search" method="GET">
-      <input type="submit" value="タスク検索" class="search-btn">
-    </form>
-    <form action="/add" method="POST">
+    <form action="/search" method="POST">
       @csrf
       @error('title')
-      <p class="error">{{$message}}</p>
+      <li class="error">{{$message}}</li>
       @enderror
       <div class="ttl-box">
-        <input type="text" name="title" class="add-ttl">
-        <div class="tag-box">
-          <select name="tag_id" class="tag">
-            @foreach ($tags as $tag)
-            <option value="{{$tag->id}}">{{$tag->category}}</option>
-            @endforeach
-          </select>
-        </div>
-        <input type="submit" value="追加" class="add-btn">
+        <input type="text" name="keyword" class="add-ttl">
+        <select name="tag_id" class="tag">
+          <option value=""></option>
+          @foreach ($tags as $tag)
+          <option value="{{$tag->id}}">{{$tag->category}}</option>
+          @endforeach
+        </select>
+        <input type="submit" value="検索" class="search-btn2">
       </div>
     </form>
     <table class="list">
@@ -50,6 +46,7 @@
         <th width="15%">更新</th>
         <th width="15%">削除</th>
       </tr>
+      @if ($todos != null)
       @foreach ($todos as $todo)
       <tr>
         <td>{{$todo->created_at}}</td>
@@ -57,13 +54,11 @@
           @csrf
           <td><input type="text" name="title" value="{{$todo->title}}" class="ttl-list"></td>
           <td>
-            <div class="tag-box">
-              <select name="tag_id" class="tag">
-                @foreach ($tags as $tag)
-                <option value="{{$tag->id}}" @if ($tag->id == $todo->tag_id) selected @endif>{{$tag->category}}</option>
-                @endforeach
-              </select>
-            </div>
+            <select name="tag_id" class="tag">
+              @foreach ($tags as $tag)
+              <option value="{{$tag->id}}" @if ($tag->id == $todo->tag_id) selected @endif>{{$tag->category}}</option>
+              @endforeach
+            </select>
           </td>
           <td><input type="submit" value="更新" class="update-btn"></td>
         </form>
@@ -73,8 +68,11 @@
         </form>
       </tr>
       @endforeach
+      @endif
     </table>
-  </div>
+    <form action="/return" method="GET">
+      <input type="submit" value="戻る" class="return-btn">
+    </form>
   </div>
 </body>
 

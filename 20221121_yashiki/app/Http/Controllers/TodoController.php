@@ -33,10 +33,11 @@ class TodoController extends Controller
 
     public function update(TodoRequest $request)
     {
+
         $form = $request->all();
         unset($form['_token']);
         Todo::find($request->id)->update($form);
-        return redirect('/home');
+        return back();
     }
 
     public function delete(Request $request)
@@ -80,7 +81,7 @@ class TodoController extends Controller
         return view('search', $param);
     }
 
-    public function return(Request $request)
+    public function return()
     {
         $todos = Todo::with(['tag', 'user'])->get();
         $user = Auth::user();
