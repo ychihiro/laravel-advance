@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
+use App\Models\Todo;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::post('/delete/{id}', [TodoController::class, 'delete']);
 Route::get('/search', [TodoController::class, 'keyword']);
 Route::post('/search', [TodoController::class, 'search']);
 Route::get('/return', [TodoController::class, 'return']);
+Route::get('/logout', [TodoController::class, 'logout']);
 
 
 

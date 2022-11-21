@@ -18,7 +18,7 @@
       @if (Auth::check())
       <p class="user">「{{$user->name}}」でログイン中</p>
       @endif
-      <form action="/home" method="GET">
+      <form action="/logout" method="GET">
         <input type="submit" value="ログアウト" class="out-btn">
       </form>
     </div>
@@ -42,18 +42,18 @@
     </form>
     <table class="list">
       <tr class="list-ttl">
-        <th width="30%">作成日</th>
-        <th width="30%">タスク名</th>
-        <th width="10%">タグ名</th>
-        <th width="10%">更新</th>
-        <th width="10%">削除</th>
+        <th width="25%">作成日</th>
+        <th width="25%">タスク名</th>
+        <th width="15%">タグ名</th>
+        <th width="15%">更新</th>
+        <th width="15%">削除</th>
       </tr>
       @foreach ($todos as $todo)
       <tr>
         <td>{{$todo->created_at}}</td>
         <form action="/update/{{$todo->id}}" method="POST">
           @csrf
-          <td><input type=" text" name="title" value="{{$todo->title}}" class="ttl-list"></td>
+          <td><input type="text" name="title" value="{{$todo->title}}" class="ttl-list"></td>
           <td>
             <select name="tag_id">
               @foreach ($tags as $tag)

@@ -12,7 +12,7 @@ class TodoController extends Controller
 {
     public function index()
     {
-        $todos = Todo::with(['tag', 'user']);
+        $todos = Todo::with(['tag', 'user'])->get();
         $user = Auth::user();
         $tags = Tag::all();
         $param = [
@@ -26,8 +26,9 @@ class TodoController extends Controller
     public function add(TodoRequest $request)
     {
         $form = $request->all();
+        $form['user_id'] = Auth::id();
         Todo::create($form);
-        return redirect('/');
+        return redirect('/home');
     }
 
     public function update(TodoRequest $request)
@@ -35,35 +36,39 @@ class TodoController extends Controller
         $form = $request->all();
         unset($form['_token']);
         Todo::find($request->id)->update($form);
-        return redirect('/');
+        return redirect('/home');
     }
 
     public function delete(Request $request)
     {
         Todo::find($request->id)->delete();
-        return redirect('/');
+        return redirect('/home');
     }
 
     public function keyword()
     {
         $user = Auth::user();
         $tags = Tag::all();
+        $search = '';
         $param = [
             'user' => $user,
             'tags' => $tags,
+            'search' => $search
         ];
         return view('search', $param);
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        $todos = with(['tag', 'user']);
+        $search = $request->all();
         $user = Auth::user();
         $tags = Tag::all();
+        $todos = Todo::with(['tag', 'user'])->where('title', 'like', '%' . $request->input('keyword') . '%')->orWhere('tag_id', '=', $request->input('tag_id'))->get();
         $param = [
-            'todos' => $todos,
+            'search' => $search,
             'user' => $user,
-            'tags' => $$tags
+            'tags' => $tags,
+            'todos' => $todos
         ];
         return view('search', $param);
     }
@@ -71,17 +76,18 @@ class TodoController extends Controller
     public function return(Request $request)
     {
         $form = $request->all();
-        $title = $request->keyword->get();
-        $category = $request->category->get();
         $user = Auth::user();
         $tags = Tag::all();
-        $query = Todo::query();
-        $query->where('title', 'like', $title)->orWhere('category', '=', $category);
         $param = [
             'form' => $form,
             'user' => $user,
             'tags' => $tags,
         ];
         return view('index', $param);
+    }
+
+    public function logout()
+    {
+        return view('auth.login');
     }
 }
