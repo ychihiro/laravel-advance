@@ -49,23 +49,30 @@ class TodoController extends Controller
     {
         $user = Auth::user();
         $tags = Tag::all();
-        $search = '';
+        $todos = '';
         $param = [
             'user' => $user,
             'tags' => $tags,
-            'search' => $search
+            'todos' => $todos
         ];
         return view('search', $param);
     }
 
     public function search(Request $request)
     {
-        $search = $request->all();
         $user = Auth::user();
         $tags = Tag::all();
-        $todos = Todo::with(['tag', 'user'])->where('title', 'like', '%' . $request->input('keyword') . '%')->orWhere('tag_id', '=', $request->input('tag_id'))->get();
+        $keyword = $request->input('keyword');
+        $category = $request->input('tag_id');
+        $result = Todo::query();
+        if ($keyword !== null) {
+            $result->where('title', 'like', '%' . $keyword . '%');
+        };
+        if ($category !== null) {
+            $result->where('tag_id', $category);
+        };
+        $todos = $result->get();
         $param = [
-            'search' => $search,
             'user' => $user,
             'tags' => $tags,
             'todos' => $todos
@@ -75,11 +82,11 @@ class TodoController extends Controller
 
     public function return(Request $request)
     {
-        $form = $request->all();
+        $todos = Todo::with(['tag', 'user'])->get();
         $user = Auth::user();
         $tags = Tag::all();
         $param = [
-            'form' => $form,
+            'todos' => $todos,
             'user' => $user,
             'tags' => $tags,
         ];
